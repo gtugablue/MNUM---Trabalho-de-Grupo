@@ -78,7 +78,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bicompartimental.cpp" />
     <ClCompile Include="Dosagem.cpp" />
     <ClCompile Include="EquacoesDiferenciais.cpp" />
     <ClCompile Include="main.cpp" />
@@ -88,10 +87,8 @@
     <None Include="..\Relatório.docx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bicompartimental.h" />
     <ClInclude Include="Dosagem.h" />
     <ClInclude Include="EquacoesDiferenciais.h" />
-    <ClInclude Include="Monocompartimental.h" />
     <ClInclude Include="SistemasEquacoesLineares.h" />
     <ClInclude Include="Zeros.h" />
   </ItemGroup>

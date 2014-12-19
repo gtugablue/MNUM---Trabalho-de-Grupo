@@ -1,7 +1,7 @@
 #include "Zeros.h"
 #include <cmath>
 
-double metodoBissecao(double f(double), double a, double b, double erro)
+double metodoBissecao(const double f(double), double a, double b, double erro)
 {
 	double xold;
 	double x = (a + b) / 2;
@@ -20,7 +20,7 @@ double metodoBissecao(double f(double), double a, double b, double erro)
 	return x;
 }
 
-double metodoCorda(double f(double), double a, double b, double erro)
+double metodoCorda(const double f(double), double a, double b, double erro)
 {
 	double xold;
 	double x = (a * f(b) - b * f(a)) / (f(b) - f(a));
@@ -39,7 +39,7 @@ double metodoCorda(double f(double), double a, double b, double erro)
 	return x;
 }
 
-double metodoNewton(double f(double), double df(double), double x, double erro)
+double metodoNewton(const double f(double), double df(double), double x, double erro)
 {
 	double xold;
 
@@ -52,7 +52,7 @@ double metodoNewton(double f(double), double df(double), double x, double erro)
 	return x;
 }
 
-double metodoPicardPeano(double g(double), double x, double erro)
+double metodoPicardPeano(const double g(double), double x, double erro)
 {
 	double xold;
 

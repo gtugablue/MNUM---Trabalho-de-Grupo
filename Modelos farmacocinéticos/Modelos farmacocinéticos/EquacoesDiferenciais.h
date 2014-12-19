@@ -1,0 +1,6 @@
+#ifndef EQUACOES_DIFERENCIAIS_H
+#define EQUACOES_DIFERENCIAIS_H
+
+
+
+#endif

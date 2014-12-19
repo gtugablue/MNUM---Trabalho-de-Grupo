@@ -27,30 +27,21 @@
     <ClCompile Include="EquacoesDiferenciais.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bicompartimental.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Relatório.docx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monocompartimental.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Dosagem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Zeros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EquacoesDiferenciais.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SistemasEquacoesLineares.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bicompartimental.h">
+    <ClInclude Include="EquacoesDiferenciais.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
