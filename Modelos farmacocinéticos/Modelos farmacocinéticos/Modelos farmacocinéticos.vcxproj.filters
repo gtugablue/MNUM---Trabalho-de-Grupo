@@ -18,12 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Dosagem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Relatório.docx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monocompartimental.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dosagem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
