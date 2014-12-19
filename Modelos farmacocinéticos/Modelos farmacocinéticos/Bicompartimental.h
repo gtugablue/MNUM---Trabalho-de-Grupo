@@ -6,7 +6,7 @@
 class Bicompartimental
 {
 private:
-	static const double fKa(const double tMax, const double Ke);
+	static const double fKa(const double Ka, const double tMax, const double Ke);
 	const double Ket;
 	const double Ka;
 	const Dosagem D;

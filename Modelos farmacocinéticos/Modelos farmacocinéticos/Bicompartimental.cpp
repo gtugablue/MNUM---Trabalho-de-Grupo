@@ -6,7 +6,7 @@ Ket(Ke / Vap), Ka()
 
 }
 
-const double Bicompartimental::fKa(const double tMax, const double Ke)
+const double Bicompartimental::fKa(const double Ka, const double tMax, const double Ke)
 {
 
 }
