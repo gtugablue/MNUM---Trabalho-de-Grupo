@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="Dosagem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Zeros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Relatório.docx" />
@@ -87,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="Dosagem.h" />
     <ClInclude Include="Monocompartimental.h" />
+    <ClInclude Include="Zeros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

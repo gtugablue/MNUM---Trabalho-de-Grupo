@@ -1,3 +1,6 @@
+#ifndef _DOSAGEM_H
+#define _DOSAGEM_H
+
 class Dosagem
 {
 private:
@@ -7,3 +10,5 @@ public:
 	Dosagem(const double tempoToma, const double quantidade);
 	double operator()(double t) const;
 };
+
+#endif

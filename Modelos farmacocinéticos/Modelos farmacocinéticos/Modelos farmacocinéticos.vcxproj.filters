@@ -21,6 +21,9 @@
     <ClCompile Include="Dosagem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Zeros.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Relatório.docx" />
@@ -30,6 +33,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dosagem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zeros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
