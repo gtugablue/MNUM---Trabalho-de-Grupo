@@ -1,3 +1,6 @@
+#ifndef MONOCOMPARTIMENTAL_H
+#define MONOCOMPARTIMENTAL_H
+
 class Monocompartimental
 {
 private:
@@ -5,3 +8,5 @@ private:
 public:
 	Monocompartimental(double (*D)(double t));
 };
+
+#endif
