@@ -3,9 +3,9 @@
 
 #define HORAS_POR_DIA			24
 #define MINUTOS_POR_HORA		60
-#define DOSE_DIARIA				500f
-#define NUM_HORAS_2A_TOMA		5f // Entre 4 e 6
-#define VOL_APAR_PLASMA			3920f
+#define DOSE_DIARIA				500.0
+#define NUM_HORAS_2A_TOMA		5.0 // Entre 4 e 6
+#define VOL_APAR_PLASMA			3920.0
 #define CONST_CIN_ELIM_TOTAL	0.1155
 
 using namespace std;
