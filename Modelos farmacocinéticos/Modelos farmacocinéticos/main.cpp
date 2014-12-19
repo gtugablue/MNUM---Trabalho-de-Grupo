@@ -18,7 +18,7 @@ double D(double t)
 	{
 		return (double)100 / MINUTOS_POR_HORA;
 	}
-	else if (t < (NUM_HORAS_2A_TOMA + 1) * 60)
+	else if (t < ((double)NUM_HORAS_2A_TOMA + 1) * 60)
 	{
 		return ((double)DOSE_DIARIA - 100) / ((double)NUM_HORAS_2A_TOMA * MINUTOS_POR_HORA);
 	}
