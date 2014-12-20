@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Dosagem.h"
 #include "Monocompartimental.h"
+#include "EquacoesDiferenciais.h"
 
 #define HORAS_POR_DIA			24
 #define MINUTOS_POR_HORA		60
@@ -93,7 +94,7 @@ int main()
 
 	tStart = clock();
 	cout << "--------- Metodo de Euler ---------" << endl;
-
+	metodoEuler(monoCompartimental, 0, 999, 0, 100);
 	
 	return 0;
 }
