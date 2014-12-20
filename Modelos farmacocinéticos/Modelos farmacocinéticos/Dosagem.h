@@ -1,13 +1,20 @@
 #ifndef _DOSAGEM_H
 #define _DOSAGEM_H
 
+#include <vector>
+
+struct Toma
+{
+	double quantidade;
+	double inicio;
+};
+
 class Dosagem
 {
 private:
-	double tempoToma;
-	double quantidade;
+	std::vector<Toma> tomas;
 public:
-	Dosagem(const double tempoToma, const double quantidade);
+	Dosagem();
 	double operator()(double t) const;
 };
 
