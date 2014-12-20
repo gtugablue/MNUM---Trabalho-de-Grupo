@@ -76,12 +76,11 @@ int main()
 	tStart = clock();
 	cout << "---------- Metodo de Picard-Peano ---------" << endl;
 	cout << "\t---------- Funcao G1 ---------" << endl;
-	cout << "Ka #1: " << metodoPicardPeano(gKa, 0.8, ERRO) << endl;
-	cout << "Ka #2: " << metodoPicardPeano(gKa, 0.001, ERRO) << endl;
-	cout << endl;
+	cout << "Ka #1: " << metodoPicardPeano(gKa, 0.001925, ERRO) << endl;
+	cout << "Ka #2: " << metodoPicardPeano(gKa, 0.046, ERRO) << endl;
 	cout << "\t---------- Funcao G2 ---------" << endl;
-	cout << "Ka #1: " << metodoPicardPeano(gKa2, 0.002, ERRO) << endl;
-	cout << "Ka #2: " << metodoPicardPeano(gKa2, 0.001, ERRO) << endl;
+	cout << "Ka #1: " << metodoPicardPeano(gKa2, 0.001925, ERRO) << endl;
+	cout << "Ka #2: " << metodoPicardPeano(gKa2, 0.046, ERRO) << endl;
 	cout << "Tempo de calculo: " << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
 	
 	return 0;
