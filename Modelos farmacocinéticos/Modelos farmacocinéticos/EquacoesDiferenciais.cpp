@@ -1,35 +1,46 @@
 #include "EquacoesDiferenciais.h"
 #include <cmath>
+#include <vector>
+using namespace std;
 
-double metodoEuler(double f(double, double), double x, double xf, double y, int num_steps)
+vector<Point> metodoEuler(double f(double, double), double x, double xf, double y, int num_steps)
 {
 	double h = (xf - x) / num_steps;
+	vector<Point> res;
+	res.push_back(Point(x, y));
 
 	for (int i = 0; i < num_steps; ++i)
 	{
 		y += h * f(x, y);
 		x += h;
+		res.push_back(Point(x, y));
 	}
 
-	return y;
+	return res;
 }
 
-double metodoRungaKutta2a(double f(double, double), double x, double xf, double y, int num_steps)
+vector<Point> metodoRungaKutta2a(double f(double, double), double x, double xf, double y, int num_steps)
 {
 	double h = (xf - x) / num_steps;
+	vector<Point> res;
+	res.push_back(Point(x, y));
 
 	for (int i = 0; i < num_steps; ++i)
 	{
 		y += h * f(x + h / 2, y + h / 2 * f(x, y));
 		x += h;
+		res.push_back(Point(x, y));
 	}
-	return y;
+	return res;
 }
 
-double metodoRungaKutta4a(double f(double, double), double x, double xf, double y, int num_steps)
+vector<Point> metodoRungaKutta4a(double f(double, double), double x, double xf, double y, int num_steps)
 {
 	double h = (xf - x) / num_steps;
 	double deltaY1, deltaY2, deltaY3, deltaY4;
+	vector<Point> res;
+	res.push_back(Point(x, y));
+
 	for (int i = 0; i < num_steps; ++i)
 	{
 		deltaY1 = h * f(x, y);
@@ -39,6 +50,7 @@ double metodoRungaKutta4a(double f(double, double), double x, double xf, double 
 
 		x += h;
 		y += (1.0 / 6) * deltaY1 + (1.0 / 3) * deltaY2 + (1.0 / 3) * deltaY3 + (1.0 / 6) * deltaY4;
+		res.push_back(Point(x, y));
 	}
-	return y;
+	return res;
 }

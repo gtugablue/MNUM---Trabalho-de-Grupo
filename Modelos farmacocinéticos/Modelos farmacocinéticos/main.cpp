@@ -4,6 +4,7 @@
 #include <time.h>
 #include <fstream>
 #include "Dosagem.h"
+#include "Monocompartimental.h"
 
 #define HORAS_POR_DIA			24
 #define MINUTOS_POR_HORA		60
@@ -49,6 +50,8 @@ int main()
 		outfile << t << "\t" << D(t) << endl;
 	}
 
+	cout << "CALCULO DO Ka" << endl;
+
 	tStart = clock();
 	cout << "---------- Metodo da bissecao ---------" << endl;
 	cout << "Ka #1: " << metodoBissecao(fKa, 0, 0.01, ERRO) << endl;
@@ -82,6 +85,15 @@ int main()
 	cout << "Ka #1: " << metodoPicardPeano(gKa2, 0.001925, ERRO) << endl;
 	cout << "Ka #2: " << metodoPicardPeano(gKa2, 0.046, ERRO) << endl;
 	cout << "Tempo de calculo: " << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
+	
+	cout << endl;
+	
+	cout << "MODELO MONOCOMPARTIMENTAL" << endl;
+	Monocompartimental monoCompartimental(D, VOL_APAR_PLASMA, CONST_CIN_ELIM_TOTAL / VOL_APAR_PLASMA);
+
+	tStart = clock();
+	cout << "--------- Metodo de Euler ---------" << endl;
+
 	
 	return 0;
 }
