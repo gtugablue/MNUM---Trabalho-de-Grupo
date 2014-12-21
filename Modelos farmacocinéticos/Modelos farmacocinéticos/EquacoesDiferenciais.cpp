@@ -1,6 +1,7 @@
 #include "EquacoesDiferenciais.h"
 #include <cmath>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 vector<Point> metodoEuler(double f(double, double), double x, double xf, double y, int num_steps)
