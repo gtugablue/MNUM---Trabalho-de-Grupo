@@ -30,6 +30,9 @@
     <ClCompile Include="Monocompartimental.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SistemaEquacoesDiferenciais.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Relatório.docx" />
@@ -45,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Monocompartimental.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaEquacoesDiferenciais.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
