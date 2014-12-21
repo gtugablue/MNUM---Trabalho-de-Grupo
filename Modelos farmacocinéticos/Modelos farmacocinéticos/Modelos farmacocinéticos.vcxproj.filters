@@ -41,9 +41,6 @@
     <ClInclude Include="Zeros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SistemasEquacoesLineares.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EquacoesDiferenciais.h">
       <Filter>Header Files</Filter>
     </ClInclude>

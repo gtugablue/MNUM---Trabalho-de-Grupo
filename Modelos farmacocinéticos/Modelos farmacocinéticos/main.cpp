@@ -14,6 +14,7 @@
 #define NUM_HORAS_2A_TOMA		5.0 // Entre 4 e 6
 #define VOL_APAR_PLASMA			3920.0
 #define CONST_CIN_ELIM_TOTAL	0.001925
+#define CONST_CIN_ELIM			CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA
 #define T_MAX					72.0
 #define FIM_DOSAGEM				13 * 24 * 60
 
@@ -108,26 +109,70 @@ void calcularKa(Dosagem D)
 void modeloMonocompartimental(Dosagem D)
 {
 	cout << "MODELO MONOCOMPARTIMENTAL" << endl;
-	Monocompartimental monoCompartimental(D, VOL_APAR_PLASMA, CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA);
+	Monocompartimental monoCompartimental(D, VOL_APAR_PLASMA, CONST_CIN_ELIM);
 
 	clock_t tStart;
+	double tempoCalculo;
+	vector<Point> pontos;
 	
+	// EULER
 	tStart = clock();
-	cout << "--------- Metodo de Euler ---------" << endl;
-	vector<Point> pontos = metodoEuler(mc, 0, FIM_DOSAGEM, 0, 1000);
-	double tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
-	/*for (size_t i = 0; i < pontos.size(); ++i)
+	cout << "--------- Metodo de Euler ---------" << endl << endl;
+	pontos = metodoEuler(mc, 0, FIM_DOSAGEM, 0, 100000);
+	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
+	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
 	cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
-	}*/
+	}
 	cout << "Tempo de calculo: " << tempoCalculo << " s" << endl;
 
-	ofstream outfile("monocompartimental_euler.txt");
+	ofstream outfile1("monocompartimental_euler.txt");
 	for (size_t i = 0; i < pontos.size(); ++i)
 	{
-		outfile << pontos[i].x << "\t" << pontos[i].y << endl;
+		outfile1 << pontos[i].x << "\t" << pontos[i].y << endl;
 	}
+	outfile1.close();
+	cout << endl;
+
+	// RK2
+	tStart = clock();
+	cout << "--------- Metodo de Runge-Kutta 2a ordem ---------" << endl << endl;
+	pontos = metodoRungaKutta2a(mc, 0, FIM_DOSAGEM, 0, 100000);
+	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
+	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
+	{
+	cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
+	}
+	cout << "Tempo de calculo: " << tempoCalculo << " s" << endl;
+
+	ofstream outfile2("monocompartimental_rk2.txt");
+	for (size_t i = 0; i < pontos.size(); ++i)
+	{
+		outfile2 << pontos[i].x << "\t" << pontos[i].y << endl;
+	}
+	outfile2.close();
+	cout << endl;
+
+	// RK4
+	tStart = clock();
+	cout << "--------- Metodo de Runge-Kutta 4a ordem ---------" << endl << endl;
+	pontos = metodoRungaKutta4a(mc, 0, FIM_DOSAGEM, 0, 100000);
+	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
+	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
+	{
+		cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
+	}
+	cout << "Tempo de calculo: " << tempoCalculo << " s" << endl;
+
+	ofstream outfile3("monocompartimental_rk4.txt");
+	for (size_t i = 0; i < pontos.size(); ++i)
+	{
+		outfile3 << pontos[i].x << "\t" << pontos[i].y << endl;
+	}
+	outfile3.close();
 }
+
+void modelo
 
 int main()
 {

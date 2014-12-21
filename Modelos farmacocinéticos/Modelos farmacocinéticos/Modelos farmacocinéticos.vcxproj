@@ -91,7 +91,6 @@
     <ClInclude Include="Dosagem.h" />
     <ClInclude Include="EquacoesDiferenciais.h" />
     <ClInclude Include="Monocompartimental.h" />
-    <ClInclude Include="SistemasEquacoesLineares.h" />
     <ClInclude Include="Zeros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
