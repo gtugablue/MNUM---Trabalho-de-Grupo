@@ -40,7 +40,7 @@ Dosagem::Dosagem()
 
 double Dosagem::operator()(double t) const
 {
-	if (t > 12 * HORAS_POR_DIA * MINUTOS_POR_HORA)
+	if (t > 12 * HORAS_POR_DIA * MINUTOS_POR_HORA || t < 0)
 	{
 		return 0;
 	}

@@ -19,7 +19,6 @@ double metodoBissecao(double f(double), double a, double b, double erro)
 		xold = x;
 		x = (a + b) / 2;
 		++i;
-		if (i >= 100) break;
 	} while (abs(x - xold) > erro);
 
 	cout << "Numero de iteracoes: " << i << endl;
@@ -42,7 +41,6 @@ double metodoCorda(double f(double), double a, double b, double erro)
 		xold = x;
 		x = (a * f(b) - b * f(a)) / (f(b) - f(a));
 		++i;
-		if (i >= 100) break;
 	} while (abs(x - xold) > erro);
 
 	cout << "Numero de iteracoes: " << i << endl;
@@ -59,7 +57,6 @@ double metodoNewton(double f(double), double df(double), double x, double erro)
 		xold = x;
 		x = xold - f(xold) / df(xold);
 		++i;
-		if (i >= 100) break;
 	} while (abs(x - xold) > erro);
 
 	cout << "Numero de iteracoes: " << i << endl;
@@ -76,7 +73,6 @@ double metodoPicardPeano(double g(double), double x, double erro)
 		xold = x;
 		x = g(xold);
 		++i;
-		if (i >= 100) break;
 	} while (abs(x - xold) > erro);
 
 	cout << "Numero de iteracoes: " << i << endl;
