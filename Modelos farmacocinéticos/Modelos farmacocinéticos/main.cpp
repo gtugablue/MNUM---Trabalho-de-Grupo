@@ -11,18 +11,19 @@
 
 #define HORAS_POR_DIA			24
 #define MINUTOS_POR_HORA		60
-#define DOSE_DIARIA				500.0
-#define NUM_HORAS_2A_TOMA		5.0 // Entre 4 e 6
-#define VOL_APAR_PLASMA			3920.0
-#define CONST_CIN_ELIM_TOTAL	0.001925
+#define VOL_APAR_PLASMA			3920
+#define CONST_CIN_ELIM_TOTAL	0.1155 / MINUTOS_POR_HORA
 #define CONST_CIN_ELIM			CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA
 #define T_MAX					72.0
-#define FIM_DOSAGEM				13 * 24 * 60
+#define FIM_DOSAGEM				12 * HORAS_POR_DIA * MINUTOS_POR_HORA
 #define CONST_ABSORCAO			0.04600627564637752
 
 #define ERRO					1.0e-20
+#define NUM_ITER				FIM_DOSAGEM * 64
 
 using namespace std;
+
+Dosagem D;
 
 void clearScreen()
 {
@@ -56,8 +57,7 @@ double dfKa(double Ka)
 
 double mc(double t, double Cp)
 {
-	Dosagem D;
-	return (D(t) - CONST_CIN_ELIM_TOTAL * Cp) / VOL_APAR_PLASMA;
+	return (D(t) / CONST_ABSORCAO - CONST_CIN_ELIM_TOTAL * Cp) / VOL_APAR_PLASMA;
 }
 
 double bc1(double t, double mi, double mp)
@@ -72,6 +72,11 @@ double bc2(double t, double mi, double mp)
 	return CONST_ABSORCAO * mi - CONST_CIN_ELIM_TOTAL * mp;
 }
 
+double calcularQC(double S[])
+{
+	return (S[1] - S[0]) / (S[2] - S[1]);
+}
+
 void modeloMonocompartimental(Dosagem D)
 {
 	cout << "------------------------------------" << endl;
@@ -83,15 +88,16 @@ void modeloMonocompartimental(Dosagem D)
 	clock_t tStart;
 	double tempoCalculo;
 	vector<Point2D> pontos;
-	
+	double S[3];
+
 	// EULER
 	tStart = clock();
 	cout << "--------- Metodo de Euler ---------" << endl << endl;
-	pontos = metodoEuler(mc, 0, FIM_DOSAGEM, 0, 100000);
+	pontos = metodoEuler(mc, 0, FIM_DOSAGEM, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
-	cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
+		cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
 	}
 	cout << "Tempo de calculo: " << tempoCalculo << " s" << endl;
 
@@ -103,14 +109,25 @@ void modeloMonocompartimental(Dosagem D)
 	outfile1.close();
 	cout << endl;
 
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoEuler(mc, 0, FIM_DOSAGEM, 0, pow(2, i) * NUM_ITER);
+		S[i] = pontos[pontos.size() - 1].y;
+		cout << "S[" << i << "] = " << S[i] << endl;
+	}
+
+	cout << "QC: " << calcularQC(S) << endl;
+
+	cout << endl;
+
 	// RK2
 	tStart = clock();
 	cout << "--------- Metodo de Runge-Kutta 2a ordem ---------" << endl << endl;
-	pontos = metodoRungaKutta2a(mc, 0, FIM_DOSAGEM, 0, 100000);
+	pontos = metodoRungaKutta2a(mc, 0, FIM_DOSAGEM, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
-	cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
+		cout << "t: " << pontos[i].x << "\tCp: " << pontos[i].y << endl;
 	}
 	cout << "Tempo de calculo: " << tempoCalculo << " s" << endl;
 
@@ -122,10 +139,21 @@ void modeloMonocompartimental(Dosagem D)
 	outfile2.close();
 	cout << endl;
 
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoRungaKutta2a(mc, 0, FIM_DOSAGEM, 0, pow(2, i) * NUM_ITER);
+		S[i] = pontos[pontos.size() - 1].y;
+		cout << "S[" << i << "] = " << S[i] << endl;
+	}
+
+	cout << "QC: " << calcularQC(S) << endl;
+
+	cout << endl;
+
 	// RK4
 	tStart = clock();
 	cout << "--------- Metodo de Runge-Kutta 4a ordem ---------" << endl << endl;
-	pontos = metodoRungaKutta4a(mc, 0, FIM_DOSAGEM, 0, 100000);
+	pontos = metodoRungaKutta4a(mc, 0, FIM_DOSAGEM, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
@@ -139,6 +167,18 @@ void modeloMonocompartimental(Dosagem D)
 		outfile3 << pontos[i].x << "\t" << pontos[i].y << endl;
 	}
 	outfile3.close();
+	cout << endl;
+
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoRungaKutta4a(mc, 0, FIM_DOSAGEM, 0, pow(2, i) * NUM_ITER);
+		S[i] = pontos[pontos.size() - 1].y;
+		cout << "S[" << i << "] = " << S[i] << endl;
+	}
+
+	cout << "QC: " << calcularQC(S) << endl;
+
+	cout << endl;
 }
 
 double bicompartimentalCalcularKa(Dosagem D)
@@ -206,11 +246,12 @@ void bicompartimentalCalcularMassas(Dosagem D)
 	clock_t tStart;
 	double tempoCalculo;
 	vector<Point3D> pontos;
+	double Smi[3], Smp[3];
 
 	// EULER
 	tStart = clock();
 	cout << "--------- Metodo de Euler ---------" << endl << endl;
-	pontos = metodoEulerSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, 100000);
+	pontos = metodoEulerSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
@@ -226,10 +267,24 @@ void bicompartimentalCalcularMassas(Dosagem D)
 	outfile1.close();
 	cout << endl;
 
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoEulerSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, pow(2, i) * NUM_ITER);
+		Smi[i] = pontos[pontos.size() - 1].y;
+		Smp[i] = pontos[pontos.size() - 1].z;
+		cout << "Smi[" << i << "] = " << Smi[i] << endl;
+		cout << "Smp[" << i << "] = " << Smp[i] << endl;
+	}
+
+	cout << "QCmi: " << calcularQC(Smi) << endl;
+	cout << "QCmp: " << calcularQC(Smp) << endl;
+
+	cout << endl;
+
 	// RK2
 	tStart = clock();
 	cout << "--------- Metodo de Runge-Kutta 2a ordem ---------" << endl << endl;
-	pontos = metodoRungaKutta2aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, 100000);
+	pontos = metodoRungaKutta2aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
@@ -245,10 +300,24 @@ void bicompartimentalCalcularMassas(Dosagem D)
 	outfile2.close();
 	cout << endl;
 
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoRungaKutta2aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, pow(2, i) * NUM_ITER);
+		Smi[i] = pontos[pontos.size() - 1].y;
+		Smp[i] = pontos[pontos.size() - 1].z;
+		cout << "Smi[" << i << "] = " << Smi[i] << endl;
+		cout << "Smp[" << i << "] = " << Smp[i] << endl;
+	}
+
+	cout << "QCmi: " << calcularQC(Smi) << endl;
+	cout << "QCmp: " << calcularQC(Smp) << endl;
+
+	cout << endl;
+
 	// RK4
 	tStart = clock();
 	cout << "--------- Metodo de Runge-Kutta 4a ordem ---------" << endl << endl;
-	pontos = metodoRungaKutta4aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, 100000);
+	pontos = metodoRungaKutta4aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, NUM_ITER);
 	tempoCalculo = ((double)clock() - tStart) / CLOCKS_PER_SEC;
 	for (size_t i = pontos.size() - 1; i < pontos.size(); ++i)
 	{
@@ -262,6 +331,20 @@ void bicompartimentalCalcularMassas(Dosagem D)
 		outfile3 << pontos[i].x << "\t" << pontos[i].y << "\t" << pontos[i].z << endl;
 	}
 	outfile3.close();
+
+	for (size_t i = 0; i < 3; ++i)
+	{
+		pontos = metodoRungaKutta4aSistema(bc1, bc2, 0, FIM_DOSAGEM, 0, 0, pow(2, i) * NUM_ITER);
+		Smi[i] = pontos[pontos.size() - 1].y;
+		Smp[i] = pontos[pontos.size() - 1].z;
+		cout << "Smi[" << i << "] = " << Smi[i] << endl;
+		cout << "Smp[" << i << "] = " << Smp[i] << endl;
+	}
+
+	cout << "QCmi: " << calcularQC(Smi) << endl;
+	cout << "QCmp: " << calcularQC(Smp) << endl;
+
+	cout << endl;
 }
 
 void modeloBicompartimental(Dosagem D)
@@ -314,6 +397,7 @@ void modeloBicompartimental(Dosagem D)
 
 int main()
 {
+	cout << setprecision(20);
 	Dosagem D;
 	while (1)
 	{
