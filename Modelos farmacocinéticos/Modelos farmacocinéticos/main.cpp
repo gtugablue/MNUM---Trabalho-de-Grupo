@@ -14,12 +14,12 @@
 #define CONST_CIN_ELIM_TOTAL	(0.1155 / MINUTOS_POR_HORA)
 #define CONST_CIN_ELIM			(CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA)
 #define T_MAX					(1.2 * MINUTOS_POR_HORA)
-#define FIM_DOSAGEM				(12 * HORAS_POR_DIA * MINUTOS_POR_HORA)
+#define FIM_DOSAGEM				(13 * HORAS_POR_DIA * MINUTOS_POR_HORA)
 #define CONST_ABSORCAO			0.04600627564637752
 //#define CONST_ABSORCAO			2.76038
 
 #define ERRO					1.0e-20
-#define NUM_ITER				(FIM_DOSAGEM * 60 * 2)
+#define NUM_ITER				(FIM_DOSAGEM * 128)
 
 using namespace std;
 
@@ -57,7 +57,7 @@ double dfKa(double Ka)
 
 double mc(double t, double Cp)
 {
-	return (D(t) - CONST_CIN_ELIM * Cp) / VOL_APAR_PLASMA;
+	return D(t)/VOL_APAR_PLASMA - CONST_CIN_ELIM_TOTAL * Cp;
 }
 
 double bc1(double t, double mi, double mp)
