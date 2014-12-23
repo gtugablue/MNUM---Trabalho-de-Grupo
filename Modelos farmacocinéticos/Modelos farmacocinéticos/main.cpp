@@ -5,21 +5,21 @@
 #include <time.h>
 #include <fstream>
 #include "Dosagem.h"
-#include "Monocompartimental.h"
 #include "EquacoesDiferenciais.h"
 #include "SistemaEquacoesDiferenciais.h"
 
 #define HORAS_POR_DIA			24
 #define MINUTOS_POR_HORA		60
-#define VOL_APAR_PLASMA			3920
-#define CONST_CIN_ELIM_TOTAL	0.1155 / MINUTOS_POR_HORA
-#define CONST_CIN_ELIM			CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA
-#define T_MAX					72.0
-#define FIM_DOSAGEM				12 * HORAS_POR_DIA * MINUTOS_POR_HORA
+#define VOL_APAR_PLASMA			3920.0
+#define CONST_CIN_ELIM_TOTAL	(0.1155 / MINUTOS_POR_HORA)
+#define CONST_CIN_ELIM			(CONST_CIN_ELIM_TOTAL * VOL_APAR_PLASMA)
+#define T_MAX					(1.2 * MINUTOS_POR_HORA)
+#define FIM_DOSAGEM				(12 * HORAS_POR_DIA * MINUTOS_POR_HORA)
 #define CONST_ABSORCAO			0.04600627564637752
+//#define CONST_ABSORCAO			2.76038
 
 #define ERRO					1.0e-20
-#define NUM_ITER				FIM_DOSAGEM * 64
+#define NUM_ITER				(FIM_DOSAGEM * 60 * 2)
 
 using namespace std;
 
@@ -57,18 +57,16 @@ double dfKa(double Ka)
 
 double mc(double t, double Cp)
 {
-	return (D(t) / CONST_ABSORCAO - CONST_CIN_ELIM_TOTAL * Cp) / VOL_APAR_PLASMA;
+	return (D(t) - CONST_CIN_ELIM * Cp) / VOL_APAR_PLASMA;
 }
 
 double bc1(double t, double mi, double mp)
 {
-	Dosagem D;
 	return D(t) - CONST_ABSORCAO * mi;
 }
 
 double bc2(double t, double mi, double mp)
 {
-	Dosagem D;
 	return CONST_ABSORCAO * mi - CONST_CIN_ELIM_TOTAL * mp;
 }
 
@@ -82,8 +80,6 @@ void modeloMonocompartimental(Dosagem D)
 	cout << "------------------------------------" << endl;
 	cout << "---- Modelo monocompartimental -----" << endl;
 	cout << "------------------------------------" << endl << endl;
-
-	Monocompartimental monoCompartimental(D, VOL_APAR_PLASMA, CONST_CIN_ELIM);
 
 	clock_t tStart;
 	double tempoCalculo;

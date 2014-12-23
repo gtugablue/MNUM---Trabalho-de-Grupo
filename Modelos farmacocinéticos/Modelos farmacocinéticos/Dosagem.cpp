@@ -50,7 +50,7 @@ double Dosagem::operator()(double t) const
 	size_t i;
 	for (i = 0; i < tomas.size(); ++i)
 	{
-		if (tomas[i].inicio <= t && t < tomas[i].inicio + tomas[i].quantidade * TEMPO_TOMA_POR_MG)
+		if (tomas[i].inicio < t && t < tomas[i].inicio + tomas[i].quantidade * TEMPO_TOMA_POR_MG)
 		{
 			return 1 / TEMPO_TOMA_POR_MG;
 		}

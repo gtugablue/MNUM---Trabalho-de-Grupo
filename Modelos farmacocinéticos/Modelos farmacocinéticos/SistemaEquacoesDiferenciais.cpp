@@ -5,14 +5,18 @@ using namespace std;
 vector<Point3D> metodoEulerSistema(double f1(double, double, double), double f2(double, double, double), double x, double xf, double y, double z, int num_steps)
 {
 	double h = (xf - x) / num_steps;
+	double deltaY, deltaK;
 	vector<Point3D> res;
 	res.push_back(Point3D(x, y, z));
 
 	for (int i = 0; i < num_steps; ++i)
 	{
-		z += h * f2(x, y, z);
-		y += h * f1(x, y, z);
+		deltaY = h * f1(x, y, z);
+		deltaK = h * f2(x, y, z);
+
 		x += h;
+		y += deltaY;
+		z += deltaK;
 		res.push_back(Point3D(x, y, z));
 	}
 

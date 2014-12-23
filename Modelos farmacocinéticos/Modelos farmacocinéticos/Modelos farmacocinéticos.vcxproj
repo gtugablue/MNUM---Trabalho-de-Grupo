@@ -81,7 +81,6 @@
     <ClCompile Include="Dosagem.cpp" />
     <ClCompile Include="EquacoesDiferenciais.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Monocompartimental.cpp" />
     <ClCompile Include="SistemaEquacoesDiferenciais.cpp" />
     <ClCompile Include="Zeros.cpp" />
   </ItemGroup>
@@ -91,7 +90,6 @@
   <ItemGroup>
     <ClInclude Include="Dosagem.h" />
     <ClInclude Include="EquacoesDiferenciais.h" />
-    <ClInclude Include="Monocompartimental.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SistemaEquacoesDiferenciais.h" />
     <ClInclude Include="Zeros.h" />
