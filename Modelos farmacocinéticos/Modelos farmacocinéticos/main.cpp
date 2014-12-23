@@ -16,7 +16,6 @@
 #define T_MAX					(1.2 * MINUTOS_POR_HORA)
 #define FIM_DOSAGEM				(13 * HORAS_POR_DIA * MINUTOS_POR_HORA)
 #define CONST_ABSORCAO			0.046006
-//#define CONST_ABSORCAO			2.76038
 
 #define ERRO					1.0e-6
 #define NUM_ITER				(FIM_DOSAGEM * 128)
